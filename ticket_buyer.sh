@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # 	 dcr-splittickerbuyer-script: A shell script to buy split ticket interactively.
 #    Copyright (C) 2021  Chen Kang Yang
@@ -33,11 +33,13 @@ then
 fi
 
 # Check configuration file for splittickebuyer exist
-if ! [ -f "~/.splitticketbuyer/splitticketbuyer.conf" ]
+if ! [ -f ~/.splitticketbuyer/splitticketbuyer.conf ]
 then
 	echo 'Setting up configuration file on first run.'
-	#./splitticketbuyer
+	echo
+	./splitticketbuyer
 	EXITCODE=$?
+	echo
 	echo 'Please make changes to the configuration file before proceeding.'
 	echo 'Configuration file path: '~/.splitticketbuyer/splitticketbuyer.conf
 
@@ -60,6 +62,7 @@ EXITCODE=1
 # Execute splitticketbuyer
 while [ $EXITCODE != 0 ]
 do
+	echo
     ./splitticketbuyer --sessionname="$SESSION" --maxamount="$AMOUNT" --pass="$PASSWORD" "$@"
     EXITCODE=$?
     
