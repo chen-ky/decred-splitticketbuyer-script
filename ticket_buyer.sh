@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 	 dcr-splittickerbuyer-script: A shell script to buy split ticket interactively.
+#    dcr-splittickerbuyer-script: A bash script to buy split ticket interactively.
 #    Copyright (C) 2021  Chen Kang Yang
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -63,7 +63,7 @@ EXITCODE=1
 while [ $EXITCODE != 0 ]
 do
 	echo
-    ./splitticketbuyer --sessionname="$SESSION" --maxamount="$AMOUNT" --pass="$PASSWORD" "$@"
+    ./splitticketbuyer --sessionname="$SESSION" --maxamount="$AMOUNT" "$@" <<< $PASSWORD
     EXITCODE=$?
     
     if [ $EXITCODE != 0 ]
