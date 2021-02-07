@@ -18,3 +18,8 @@ A bash script to buy Decred split ticket interactively.
 * Make sure you have given both `ticket_buyer.sh` and `splitticketbuyer` permission to execute.
 * View file permission: `ls -l`
 * Add execute permission to both file: `chmod u+x ticket_buyer.sh splitticketbuyer`
+
+## Donation
+
+* DCR: `DsXpofPmgwZGTncpsEzZACkKFeqoRzYjgWv`
+* BTC: `bc1qww8sktvenl044juafgvt068yah9dxuwrhht4kq`
