@@ -47,9 +47,12 @@ then
 fi
 
 # Get required information
+ORIGINAL_IFS="$IFS"
+IFS=""
 echo -n "Enter wallet password: "
-read -s PASSWORD
+read -r -s PASSWORD
 echo
+IFS="$ORIGINAL_IFS"
 
 echo -n "Enter maximum purchase amount (DCR): "
 read AMOUNT
@@ -57,23 +60,24 @@ read AMOUNT
 echo -n "Session name: "
 read SESSION
 
-EXITCODE=1
-
 # Execute splitticketbuyer
-while [ $EXITCODE != 0 ]
+while :
 do
 	echo
-    ./splitticketbuyer --sessionname="$SESSION" --maxamount="$AMOUNT" "$@" <<< $PASSWORD
-    EXITCODE=$?
+    OUTPUT=$(./splitticketbuyer --sessionname="$SESSION" --maxamount="$AMOUNT" "$@" <<< "$PASSWORD" 2>&1 | tee /dev/tty)
+	echo -n "$OUTPUT" | grep -i 'Error' &> /dev/null
     
-    if [ $EXITCODE != 0 ]
+    if [ $? ]
     then
-    	# Retry after 30 seconds if failed
-	    sleep 30
+		# Retry after 30 seconds if failed
+		echo 'Retrying in 30 seconds.'
+		sleep 30
+	else
+		break
 	fi
+
 done
 
 echo 
 echo 'If you like what I am doing, please consider giving me a donation.'
 echo 'DCR: DsXpofPmgwZGTncpsEzZACkKFeqoRzYjgWv'
-exit $EXITCODE
